@@ -14,7 +14,18 @@
    See the License for the specific language governing permissions and
    limitations under the License.
 -->
-
 <resources>
-    <style name="AppTheme" parent="android:Theme.Light" />
+    <!-- TODO: Replace this by your app's app ID! -->
+    <string name="app_id">ReplaceMe</string>
+
+    <!-- TODO: Replace these by your achievement/leaderboard IDs! -->
+    <string name="achievement_prime">ReplaceMe</string>
+    <string name="achievement_really_bored">ReplaceMe</string>
+    <string name="achievement_bored">ReplaceMe</string>
+    <string name="achievement_humble">ReplaceMe</string>
+    <string name="achievement_arrogant">ReplaceMe</string>
+    <string name="achievement_leet">ReplaceMe</string>
+
+    <string name="leaderboard_easy">ReplaceMe</string>
+    <string name="leaderboard_hard">ReplaceMe</string>
 </resources>
