@@ -20,6 +20,23 @@ android {
         minSdkVersion 10
         targetSdkVersion 18
     }
+
+    signingConfigs {
+        release {
+            storeFile file(System.getenv("ANDROID_KEYSTORE"))
+            keyAlias System.getenv("ANDROID_KEY_ALIAS")
+            storePassword System.console().readLine("\n\$ Enter keystore password: ")
+            keyPassword System.console().readLine("\n\$ Enter key password: ")
+        }
+    }
+
+    buildTypes {
+        release {
+            runProguard true
+            proguardFile getDefaultProguardFile('proguard-android-optimize.txt')
+            signingConfig signingConfigs.release
+        }
+    }
 }
 
 dependencies {
