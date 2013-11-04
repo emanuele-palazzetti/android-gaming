@@ -9,13 +9,13 @@ This is a sample project used to study "Google game services". It is based on Go
 Build system
 ------------
 
-This project uses the new Android build system (Gradle_). To build the project type
+This project uses the new Android build system (Gradle_). To build the project type:
 
 .. code-block:: python
 
     gradle aR --no-daemon
 
-or you can use Gradle wrapper present in this repository (gradlew)
+or you can use Gradle wrapper present in this repository (`gradlew`).
 
 .. _Gradle: http://tools.android.com/tech-docs/new-build-system/user-guide
 
