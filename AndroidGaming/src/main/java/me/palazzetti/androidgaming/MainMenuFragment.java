@@ -47,7 +47,7 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
+                             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_mainmenu, container, false);
         final int[] CLICKABLES = new int[] {
                 R.id.easy_mode_button, R.id.hard_mode_button,
@@ -89,24 +89,24 @@ public class MainMenuFragment extends Fragment implements OnClickListener {
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-        case R.id.easy_mode_button:
-            mListener.onStartGameRequested(false);
-            break;
-        case R.id.hard_mode_button:
-            mListener.onStartGameRequested(true);
-            break;
-        case R.id.show_achievements_button:
-            mListener.onShowAchievementsRequested();
-            break;
-        case R.id.show_leaderboards_button:
-            mListener.onShowLeaderboardsRequested();
-            break;
-        case R.id.sign_in_button:
-            mListener.onSignInButtonClicked();
-            break;
-        case R.id.sign_out_button:
-            mListener.onSignOutButtonClicked();
-            break;
+            case R.id.easy_mode_button:
+                mListener.onStartGameRequested(false);
+                break;
+            case R.id.hard_mode_button:
+                mListener.onStartGameRequested(true);
+                break;
+            case R.id.show_achievements_button:
+                mListener.onShowAchievementsRequested();
+                break;
+            case R.id.show_leaderboards_button:
+                mListener.onShowLeaderboardsRequested();
+                break;
+            case R.id.sign_in_button:
+                mListener.onSignInButtonClicked();
+                break;
+            case R.id.sign_out_button:
+                mListener.onSignOutButtonClicked();
+                break;
         }
     }
 

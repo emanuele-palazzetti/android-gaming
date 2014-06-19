@@ -22,6 +22,7 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.android.gms.games.Games;
 import com.google.android.gms.games.Player;
 import me.palazzetti.basegameutils.BaseGameActivity;
 
@@ -107,7 +108,8 @@ public class MainActivity extends BaseGameActivity
     @Override
     public void onShowAchievementsRequested() {
         if (isSignedIn()) {
-            startActivityForResult(getGamesClient().getAchievementsIntent(), RC_UNUSED);
+            startActivityForResult(Games.Achievements.getAchievementsIntent(getApiClient()),
+                    RC_UNUSED);
         } else {
             showAlert(getString(R.string.achievements_not_available));
         }
@@ -116,7 +118,8 @@ public class MainActivity extends BaseGameActivity
     @Override
     public void onShowLeaderboardsRequested() {
         if (isSignedIn()) {
-            startActivityForResult(getGamesClient().getAllLeaderboardsIntent(), RC_UNUSED);
+            startActivityForResult(Games.Leaderboards.getAllLeaderboardsIntent(getApiClient()),
+                    RC_UNUSED);
         } else {
             showAlert(getString(R.string.leaderboards_not_available));
         }
@@ -141,10 +144,16 @@ public class MainActivity extends BaseGameActivity
      * did what they were supposed to in order for the sample to work.
      */
     boolean verifyPlaceholderIdsReplaced() {
-        final boolean CHECK_PKGNAME = true; // set to false to disable check (not recommended!)
+        final boolean CHECK_PKGNAME = true; // set to false to disable check
+        // (not recommended!)
 
         // Did the developer forget to change the package name?
-        if (CHECK_PKGNAME && (getPackageName().startsWith("com.google.example."))) return false;
+        if (CHECK_PKGNAME && getPackageName().startsWith("com.google.example.")) {
+            Log.e(TAG, "*** Sample setup problem: " +
+                    "package name cannot be com.google.example.*. Use your own " +
+                    "package name.");
+            return false;
+        }
 
         // Did the developer forget to replace a placeholder ID?
         int res_ids[] = new int[] {
@@ -153,9 +162,12 @@ public class MainActivity extends BaseGameActivity
                 R.string.achievement_leet, R.string.achievement_prime,
                 R.string.leaderboard_easy, R.string.leaderboard_hard
         };
-
         for (int i : res_ids) {
-            if (getString(i).equalsIgnoreCase("ReplaceMe")) return false;
+            if (getString(i).equalsIgnoreCase("ReplaceMe")) {
+                Log.e(TAG, "*** Sample setup problem: You must replace all " +
+                        "placeholder IDs in the ids.xml file by your project's IDs.");
+                return false;
+            }
         }
         return true;
     }
@@ -225,7 +237,7 @@ public class MainActivity extends BaseGameActivity
 
     void unlockAchievement(int achievementId, String fallbackString) {
         if (isSignedIn()) {
-            getGamesClient().unlockAchievement(getString(achievementId));
+            Games.Achievements.unlock(getApiClient(), getString(achievementId));
         } else {
             Toast.makeText(this, getString(R.string.achievement) + ": " + fallbackString,
                     Toast.LENGTH_LONG).show();
@@ -248,34 +260,34 @@ public class MainActivity extends BaseGameActivity
             return;
         }
         if (mOutbox.mPrimeAchievement) {
-            getGamesClient().unlockAchievement(getString(R.string.achievement_prime));
+            Games.Achievements.unlock(getApiClient(), getString(R.string.achievement_prime));
             mOutbox.mPrimeAchievement = false;
         }
         if (mOutbox.mArrogantAchievement) {
-            getGamesClient().unlockAchievement(getString(R.string.achievement_arrogant));
+            Games.Achievements.unlock(getApiClient(), getString(R.string.achievement_arrogant));
             mOutbox.mArrogantAchievement = false;
         }
         if (mOutbox.mHumbleAchievement) {
-            getGamesClient().unlockAchievement(getString(R.string.achievement_humble));
+            Games.Achievements.unlock(getApiClient(), getString(R.string.achievement_humble));
             mOutbox.mHumbleAchievement = false;
         }
         if (mOutbox.mLeetAchievement) {
-            getGamesClient().unlockAchievement(getString(R.string.achievement_leet));
+            Games.Achievements.unlock(getApiClient(), getString(R.string.achievement_leet));
             mOutbox.mLeetAchievement = false;
         }
         if (mOutbox.mBoredSteps > 0) {
-            getGamesClient().incrementAchievement(getString(R.string.achievement_really_bored),
+            Games.Achievements.increment(getApiClient(), getString(R.string.achievement_really_bored),
                     mOutbox.mBoredSteps);
-            getGamesClient().incrementAchievement(getString(R.string.achievement_bored),
+            Games.Achievements.increment(getApiClient(), getString(R.string.achievement_bored),
                     mOutbox.mBoredSteps);
         }
         if (mOutbox.mEasyModeScore >= 0) {
-            getGamesClient().submitScore(getString(R.string.leaderboard_easy),
+            Games.Leaderboards.submitScore(getApiClient(), getString(R.string.leaderboard_easy),
                     mOutbox.mEasyModeScore);
             mOutbox.mEasyModeScore = -1;
         }
         if (mOutbox.mHardModeScore >= 0) {
-            getGamesClient().submitScore(getString(R.string.leaderboard_hard),
+            Games.Leaderboards.submitScore(getApiClient(), getString(R.string.leaderboard_hard),
                     mOutbox.mHardModeScore);
             mOutbox.mHardModeScore = -1;
         }
@@ -317,7 +329,7 @@ public class MainActivity extends BaseGameActivity
         mWinFragment.setShowSignInButton(false);
 
         // Set the greeting appropriately on main menu
-        Player p = getGamesClient().getCurrentPlayer();
+        Player p = Games.Players.getCurrentPlayer(getApiClient());
         String displayName;
         if (p == null) {
             Log.w(TAG, "mGamesClient.getCurrentPlayer() is NULL!");
