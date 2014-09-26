@@ -28,7 +28,7 @@
     <string name="achievement_prime_toast_text">Prime score!</string>
     <string name="achievement_arrogant_toast_text">Arrogant (requested maximum score)!</string>
     <string name="achievement_humble_toast_text">Humble! (requested 0 score)</string>
-    <string name="achievement_leet_toast_text">L33t! (got 1337 score)</string>
+    <string name="achievement_leet_toast_text">Clairvoyant! (or nerd?)</string>
     <string name="achievement">Achievement</string>
     <string name="your_progress_will_be_uploaded">Your existing achievements and score will be uploaded shortly.</string>
     <string name="what_score_do_you_deserve">What score do you think you deserve?</string>

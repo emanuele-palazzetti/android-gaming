@@ -228,7 +228,7 @@ public class MainActivity extends BaseGameActivity
             mOutbox.mHumbleAchievement = true;
             achievementToast(getString(R.string.achievement_humble_toast_text));
         }
-        if (finalScore == 1337) {
+        if (finalScore == 42) {
             mOutbox.mLeetAchievement = true;
             achievementToast(getString(R.string.achievement_leet_toast_text));
         }
