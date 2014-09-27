@@ -46,7 +46,7 @@ public class WinFragment extends Fragment implements OnClickListener {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+            Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_win, container, false);
         v.findViewById(R.id.win_ok_button).setOnClickListener(this);
         v.findViewById(R.id.win_screen_sign_in_button).setOnClickListener(this);
